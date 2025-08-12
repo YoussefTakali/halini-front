@@ -1,0 +1,56 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <!-- Brand/Logo -->
+    <div class="nav-brand" (click)="navigateTo('/')">
+      <span class="brand-text">{{ brand }}</span>
+    </div>
+
+    <!-- Navigation Items -->
+    <div class="nav-menu">
+      <ul class="nav-list">
+        <li *ngFor="let item of navItems" class="nav-item">
+          <a 
+            class="nav-link" 
+            (click)="navigateTo(item.path)"
+            [class.active]="router.url === item.path">
+            <i *ngIf="item.icon" [class]="item.icon"></i>
+            {{ item.label }}
+          </a>
+          
+          <!-- Dropdown menu for items with children -->
+          <ul *ngIf="item.children" class="dropdown-menu">
+            <li *ngFor="let child of item.children" class="dropdown-item">
+              <a (click)="navigateTo(child.path)" class="dropdown-link">
+                <i *ngIf="child.icon" [class]="child.icon"></i>
+                {{ child.label }}
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- User Actions -->
+    <div class="nav-actions">
+      <div *ngIf="userType" class="user-info">
+        <span class="user-type-badge" [class]="userType + '-badge'">
+          {{ userType | titlecase }}
+        </span>
+        <button class="logout-btn" (click)="onLogout()">
+          <i class="fas fa-sign-out-alt"></i>
+          Logout
+        </button>
+      </div>
+      
+      <div *ngIf="!userType" class="auth-actions">
+        <button class="login-btn" (click)="navigateTo('/login')">Login</button>
+        <button class="signup-btn" (click)="navigateTo('/register')">Sign Up</button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+  </div>
+</nav>

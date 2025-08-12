@@ -1,0 +1,184 @@
+<div class="home-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-background"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">
+          <span class="arabic-text">حلويات تونسية أصيلة</span>
+          <span class="english-text">Authentic Tunisian Sweets</span>
+        </h1>
+        <p class="hero-subtitle">
+          Discover the exquisite taste of traditional handmade Tunisian confections, 
+          crafted with love using time-honored family recipes passed down through generations.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-primary" routerLink="/products">
+            <i class="fas fa-shopping-basket"></i>
+            Shop Collection
+          </button>
+          <button class="btn-secondary" routerLink="/about">
+            <i class="fas fa-heart"></i>
+            Our Story
+          </button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="floating-elements">
+          <div class="element element-1">🥮</div>
+          <div class="element element-2">🍯</div>
+          <div class="element element-3">🌹</div>
+          <div class="element element-4">✨</div>
+        </div>
+        <div class="hero-product-showcase">
+          <div class="showcase-circle"></div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section class="featured-products-section">
+    <div class="section-header">
+      <span class="section-tag">Premium Collection</span>
+      <h2>Our Signature Sweets</h2>
+      <p>Each piece is a masterpiece, handcrafted with the finest ingredients and traditional techniques</p>
+    </div>
+    
+    <div class="products-grid">
+      <div *ngFor="let product of featuredProducts" class="product-card">
+        <div class="product-image">
+          <div class="image-placeholder">
+            <i class="fas fa-cookie-bite"></i>
+          </div>
+          <div class="product-overlay">
+            <button class="quick-view-btn">
+              <i class="fas fa-eye"></i>
+              Quick View
+            </button>
+          </div>
+          <div class="product-badge">Featured</div>
+        </div>
+        <div class="product-info">
+          <h3>{{ product.name }}</h3>
+          <p class="product-description">{{ product.description }}</p>
+          <div class="product-footer">
+            <span class="price">${{ product.price }}</span>
+            <button class="add-to-cart-btn" (click)="addToCart(product)">
+              <i class="fas fa-cart-plus"></i>
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section-cta">
+      <button class="btn-outline" routerLink="/products">
+        <i class="fas fa-th"></i>
+        View All Products
+      </button>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="about-content">
+      <div class="about-text">
+        <span class="section-tag">Our Heritage</span>
+        <h2>Three Generations of Sweet Excellence</h2>
+        <p class="about-description">
+          Since 1952, the Hallini family has been perfecting the art of traditional Tunisian confections. 
+          Our recipes, passed down through three generations, combine the finest Mediterranean ingredients 
+          with time-honored techniques that have remained unchanged for decades.
+        </p>
+        <div class="heritage-stats">
+          <div class="stat">
+            <span class="stat-number">70+</span>
+            <span class="stat-label">Years of Excellence</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">25+</span>
+            <span class="stat-label">Signature Recipes</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Handmade</span>
+          </div>
+        </div>
+        <button class="btn-heritage">
+          <i class="fas fa-book-open"></i>
+          Read Our Story
+        </button>
+      </div>
+      <div class="about-visual">
+        <div class="heritage-showcase">
+          <div class="showcase-image main-image">
+            <i class="fas fa-hands"></i>
+          </div>
+          <div class="showcase-image secondary-image">
+            <i class="fas fa-medal"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
+    <div class="section-header">
+      <span class="section-tag">Customer Love</span>
+      <h2>What Our Customers Say</h2>
+      <p>Join thousands of satisfied customers who have fallen in love with our authentic flavors</p>
+    </div>
+    
+    <div class="testimonials-grid">
+      <div *ngFor="let testimonial of testimonials" class="testimonial-card">
+        <div class="testimonial-content">
+          <div class="quote-icon">
+            <i class="fas fa-quote-right"></i>
+          </div>
+          <p class="testimonial-text">"{{ testimonial.comment }}"</p>
+          <div class="rating">
+            <i *ngFor="let star of getStars(testimonial.rating)" [class]="star"></i>
+          </div>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">
+            {{ testimonial.name.charAt(0) }}
+          </div>
+          <div class="author-info">
+            <span class="author-name">{{ testimonial.name }}</span>
+            <span class="author-location">{{ testimonial.location }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter-section">
+    <div class="newsletter-content">
+      <div class="newsletter-text">
+        <h2>Stay Sweet with Hallini</h2>
+        <p>Subscribe to our newsletter for exclusive recipes, special offers, and sweet surprises delivered to your inbox.</p>
+      </div>
+      <div class="newsletter-form">
+        <div class="form-group">
+          <input type="email" placeholder="Enter your email address" class="newsletter-input">
+          <button class="newsletter-btn">
+            <i class="fas fa-paper-plane"></i>
+            Subscribe
+          </button>
+        </div>
+        <p class="form-note">
+          <i class="fas fa-lock"></i>
+          We respect your privacy. Unsubscribe at any time.
+        </p>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,1 +1,181 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global Tunisian Theme Styles */
+:root {
+  --burgundy: #8B1538;
+  --deep-burgundy: #6B0F2A;
+  --gold: #D4AF37;
+  --light-gold: #F4E4A6;
+  --cream: #FDF6E3;
+  --dark-brown: #3D2914;
+  --accent-rose: #D4516D;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--dark-brown);
+  background: #fff;
+}
+
+.arabic-text {
+  font-family: 'Amiri', 'Times New Roman', serif;
+  direction: rtl;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--burgundy);
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+/* Full-width sections */
+section {
+  width: 100%;
+  min-width: 100%;
+}
+
+.full-width {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }
+
+/* Button Reset and Base Styles */
+button {
+  background: none;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Link Styles */
+a {
+  color: var(--burgundy);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--gold);
+}
+
+/* Form Styles */
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 0.75rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+/* Loading Animation */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(212, 175, 55, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--gold);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up {
+  animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive helpers */
+.mobile-only { display: none; }
+.desktop-only { display: block; }
+
+@media (max-width: 768px) {
+  .mobile-only { display: block; }
+  .desktop-only { display: none; }
+  
+  .container {
+    padding: 0 1rem;
+  }
+  
+  body {
+    font-size: 14px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .no-print { display: none !important; }
+}

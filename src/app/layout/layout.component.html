@@ -1,0 +1,21 @@
+<div class="layout-container">
+  <!-- Navigation Bar -->
+  <app-navbar 
+    [navItems]="currentNavItems"
+    [userType]="userType"
+    brand="Hallini">
+  </app-navbar>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <app-footer></app-footer>
+
+  <!-- Shopping Cart -->
+  <app-cart></app-cart>
+</div>

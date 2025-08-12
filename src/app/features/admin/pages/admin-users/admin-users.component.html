@@ -1,0 +1,94 @@
+<div class="admin-users">
+  <div class="users-header">
+    <h1>User Management</h1>
+    <button class="add-user-btn">
+      <i class="fas fa-plus"></i>
+      Add User
+    </button>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <div class="search-box">
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm" 
+        placeholder="Search users..."
+        class="search-input">
+      <i class="fas fa-search search-icon"></i>
+    </div>
+    
+    <select [(ngModel)]="selectedRole" class="role-filter">
+      <option value="all">All Roles</option>
+      <option value="admin">Admin</option>
+      <option value="user">User</option>
+    </select>
+  </div>
+
+  <!-- Users Table -->
+  <div class="users-table-container">
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Last Login</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of filteredUsers" class="user-row">
+          <td>
+            <div class="user-info">
+              <div class="user-avatar">
+                {{ user.name.charAt(0).toUpperCase() }}
+              </div>
+              <span>{{ user.name }}</span>
+            </div>
+          </td>
+          <td>{{ user.email }}</td>
+          <td>
+            <span class="role-badge" [class]="user.role">
+              {{ user.role | titlecase }}
+            </span>
+          </td>
+          <td>
+            <span class="status-badge" [class]="user.status">
+              {{ user.status | titlecase }}
+            </span>
+          </td>
+          <td>{{ user.lastLogin | date:'medium' }}</td>
+          <td>
+            <div class="actions">
+              <button 
+                class="action-btn edit" 
+                (click)="editUser(user)"
+                title="Edit User">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button 
+                class="action-btn toggle" 
+                (click)="toggleUserStatus(user)"
+                [title]="user.status === 'active' ? 'Deactivate' : 'Activate'">
+                <i [class]="user.status === 'active' ? 'fas fa-pause' : 'fas fa-play'"></i>
+              </button>
+              <button 
+                class="action-btn delete" 
+                (click)="deleteUser(user.id)"
+                title="Delete User">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div *ngIf="filteredUsers.length === 0" class="no-users">
+      <i class="fas fa-users"></i>
+      <p>No users found matching your criteria.</p>
+    </div>
+  </div>
+</div>
