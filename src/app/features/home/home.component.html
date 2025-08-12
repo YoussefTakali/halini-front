@@ -1,199 +1,217 @@
-<!-- Hero Section -->
-<section class="hero-section">
-  <div class="hero-content">
-    <div class="hero-text">
-      <h1 class="hero-title font-primary">
-        Authentic Tunisian 
-        <span class="text-gold">Arabic Sweets</span>
-      </h1>
-      <p class="hero-subtitle">
-        Discover the rich flavors and centuries-old traditions of Tunisia's finest desserts. 
-        Made with love, delivered fresh to your door.
-      </p>
-      <div class="hero-buttons">
-        <button class="btn btn-primary btn-large">
-          <i class="fas fa-shopping-cart"></i>
-          Shop Now
-        </button>
-        <button class="btn btn-outline btn-large">
-          <i class="fas fa-play"></i>
-          Watch Our Story
-        </button>
-      </div>
-    </div>
-    <div class="hero-image">
-      <div class="hero-image-container">
-        <img src="assets/hero-sweets.jpg" alt="Delicious Tunisian Sweets" class="hero-img">
-        <div class="hero-badge">
-          <span class="badge-text">Authentic</span>
-          <span class="badge-subtitle">Since 1950</span>
+<div class="home-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-background"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <span class="arabic-text">حلويات تونسية أصيلة</span>
+        <span class="english-text">Authentic Tunisian Sweets</span>
+        <p class="hero-subtitle">
+          اكتشف عالماً من النكهات التقليدية المصنوعة بحب وخبرة أجيال<br>
+          Discover a world of traditional flavors crafted with love and generations of expertise
+        </p>
+        <div class="hero-actions">
+          <a href="#products" class="btn-primary">
+            <i class="fas fa-cookie-bite"></i>
+            <span>تسوق الآن | Shop Now</span>
+          </a>
+          <a href="#about" class="btn-secondary">
+            <i class="fas fa-heart"></i>
+            <span>قصتنا | Our Story</span>
+          </a>
         </div>
       </div>
-    </div>
-  </div>
-  
-  <!-- Floating Elements -->
-  <div class="floating-element element-1">
-    <i class="fas fa-cookie-bite"></i>
-  </div>
-  <div class="floating-element element-2">
-    <i class="fas fa-heart"></i>
-  </div>
-  <div class="floating-element element-3">
-    <i class="fas fa-star"></i>
-  </div>
-</section>
-
-<!-- Features Section -->
-<section class="features-section">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title font-primary">Why Choose Hallini?</h2>
-      <p class="section-subtitle">
-        Experience the authentic taste of Tunisia with our premium sweets
-      </p>
+      
+      <div class="hero-visual">
+        <div class="floating-elements">
+          <div class="element element-1">🍯</div>
+          <div class="element element-2">🥐</div>
+          <div class="element element-3">🧁</div>
+          <div class="element element-4">🍰</div>
+        </div>
+        <div class="hero-product-showcase">
+          <div class="showcase-circle">
+            <i class="fas fa-cookie-bite" style="font-size: 4rem; color: #8B1538;"></i>
+          </div>
+        </div>
+      </div>
     </div>
     
-    <div class="features-grid">
-      <div class="feature-card fade-in">
-        <div class="feature-icon">
-          <i class="fas fa-leaf"></i>
-        </div>
-        <h3 class="feature-title">Natural Ingredients</h3>
-        <p class="feature-description">
-          Made with the finest natural ingredients sourced directly from Tunisia
-        </p>
-      </div>
-      
-      <div class="feature-card fade-in">
-        <div class="feature-icon">
-          <i class="fas fa-clock"></i>
-        </div>
-        <h3 class="feature-title">Fresh Daily</h3>
-        <p class="feature-description">
-          Prepared fresh every day using traditional recipes passed down through generations
-        </p>
-      </div>
-      
-      <div class="feature-card fade-in">
-        <div class="feature-icon">
-          <i class="fas fa-shipping-fast"></i>
-        </div>
-        <h3 class="feature-title">Fast Delivery</h3>
-        <p class="feature-description">
-          Free delivery within 24 hours to ensure maximum freshness and quality
-        </p>
-      </div>
-      
-      <div class="feature-card fade-in">
-        <div class="feature-icon">
-          <i class="fas fa-award"></i>
-        </div>
-        <h3 class="feature-title">Premium Quality</h3>
-        <p class="feature-description">
-          Award-winning sweets recognized for exceptional taste and authenticity
-        </p>
-      </div>
+    <div class="scroll-indicator">
+      <i class="fas fa-chevron-down"></i>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Popular Products Section -->
-<section class="products-section">
-  <div class="container">
+  <!-- Featured Products Section -->
+  <section id="products" class="featured-products-section">
     <div class="section-header">
-      <h2 class="section-title font-primary">Our Popular Sweets</h2>
-      <p class="section-subtitle">
-        Discover our most loved traditional Tunisian desserts
-      </p>
+      <span class="section-tag">منتجاتنا المميزة | Featured Products</span>
+      <h2>حلويات مختارة بعناية</h2>
+      <p>تذوق أفضل ما لدينا من الحلويات التقليدية المصنوعة بمكونات طبيعية وطرق أصيلة</p>
     </div>
     
     <div class="products-grid">
       <div class="product-card" *ngFor="let product of popularProducts">
         <div class="product-image">
-          <img [src]="product.image" [alt]="product.name" class="product-img">
+          <div class="image-placeholder">
+            <i class="fas fa-cookie-bite"></i>
+          </div>
           <div class="product-overlay">
-            <button class="btn btn-primary btn-small">
-              <i class="fas fa-cart-plus"></i>
-              Add to Cart
+            <button class="quick-view-btn">
+              <i class="fas fa-eye"></i>
+              نظرة سريعة
             </button>
           </div>
-          <div class="product-badge" *ngIf="product.isNew">New</div>
+          <div class="product-badge" *ngIf="product.isNew">جديد</div>
         </div>
+        
         <div class="product-info">
-          <h3 class="product-name">{{ product.name }}</h3>
+          <h3>{{ product.name }}</h3>
           <p class="product-description">{{ product.description }}</p>
+          
           <div class="product-rating">
             <div class="stars">
               <i class="fas fa-star" *ngFor="let star of getStars(product.rating)"></i>
             </div>
-            <span class="rating-text">({{ product.reviews }} reviews)</span>
+            <span class="reviews-count">({{ product.reviews }} تقييم)</span>
           </div>
-          <div class="product-price">
-            <span class="current-price">${{ product.price }}</span>
-            <span class="original-price" *ngIf="product.originalPrice">${{ product.originalPrice }}</span>
+          
+          <div class="product-footer">
+            <div class="price-section">
+              <span class="price">${{ product.price }}</span>
+              <span class="original-price" *ngIf="product.originalPrice">${{ product.originalPrice }}</span>
+            </div>
+            <button class="add-to-cart-btn" (click)="addToCart(product)">
+              <i class="fas fa-shopping-cart"></i>
+              أضف للسلة
+            </button>
           </div>
         </div>
       </div>
     </div>
     
-    <div class="products-actions">
-      <button class="btn btn-outline btn-large">
+    <div class="section-cta">
+      <a routerLink="/products" class="btn-outline">
         <i class="fas fa-th-large"></i>
-        View All Products
-      </button>
+        <span>عرض جميع المنتجات | View All Products</span>
+      </a>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Testimonials Section -->
-<section class="testimonials-section">
-  <div class="container">
+  <!-- About Section -->
+  <section id="about" class="about-section">
+    <div class="about-content">
+      <div class="about-text">
+        <div class="section-header">
+          <span class="section-tag">تراثنا | Our Heritage</span>
+          <h2>قصة عائلة وتقاليد</h2>
+        </div>
+        <p class="about-description">
+          منذ ثلاثة أجيال، تحمل عائلتنا تقاليد صناعة الحلويات التونسية الأصيلة. 
+          نجمع بين الوصفات التقليدية والمكونات الطبيعية لنقدم لكم أفضل ما في التراث التونسي.
+        </p>
+        <p class="about-description">
+          For three generations, our family has carried the traditions of authentic Tunisian confectionery. 
+          We combine traditional recipes with natural ingredients to bring you the best of Tunisian heritage.
+        </p>
+        
+        <div class="heritage-stats">
+          <div class="stat">
+            <span class="stat-number">50+</span>
+            <span class="stat-label">Years Experience</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">1000+</span>
+            <span class="stat-label">Happy Customers</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">25+</span>
+            <span class="stat-label">Sweet Varieties</span>
+          </div>
+        </div>
+        
+        <button class="btn-heritage">
+          <i class="fas fa-book-open"></i>
+          <span>تعرف على قصتنا | Learn Our Story</span>
+        </button>
+      </div>
+      
+      <div class="about-visual">
+        <div class="heritage-showcase">
+          <div class="showcase-image main-image">
+            <i class="fas fa-store"></i>
+          </div>
+          <div class="showcase-image secondary-image">
+            <i class="fas fa-heart"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
     <div class="section-header">
-      <h2 class="section-title font-primary text-light">What Our Customers Say</h2>
-      <p class="section-subtitle text-cream">
-        Read the experiences of our happy customers
-      </p>
+      <span class="section-tag">آراء العملاء | Customer Reviews</span>
+      <h2>ما يقوله عملاؤنا</h2>
+      <p>اكتشف تجارب العملاء مع حلوياتنا من جميع أنحاء العالم</p>
     </div>
     
     <div class="testimonials-grid">
       <div class="testimonial-card" *ngFor="let testimonial of testimonials">
-        <div class="testimonial-content">
-          <div class="quote-icon">
-            <i class="fas fa-quote-left"></i>
-          </div>
-          <p class="testimonial-text">{{ testimonial.text }}</p>
+        <div class="quote-icon">
+          <i class="fas fa-quote-right"></i>
         </div>
+        
+        <p class="testimonial-text">{{ testimonial.text }}</p>
+        
+        <div class="rating">
+          <i class="fas fa-star" *ngFor="let i of [1,2,3,4,5]"></i>
+        </div>
+        
         <div class="testimonial-author">
-          <img [src]="testimonial.avatar" [alt]="testimonial.name" class="author-avatar">
+          <div class="author-avatar">
+            {{ testimonial.name.charAt(0) }}
+          </div>
           <div class="author-info">
-            <h4 class="author-name">{{ testimonial.name }}</h4>
-            <p class="author-location">{{ testimonial.location }}</p>
+            <div class="author-name">{{ testimonial.name }}</div>
+            <div class="author-location">{{ testimonial.location }}</div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CTA Section -->
-<section class="cta-section">
-  <div class="container">
-    <div class="cta-content">
-      <h2 class="cta-title font-primary">Ready to Taste Tunisia?</h2>
-      <p class="cta-subtitle">
-        Join thousands of satisfied customers and experience authentic Tunisian sweets today
-      </p>
-      <div class="cta-buttons">
-        <button class="btn btn-primary btn-large">
-          <i class="fas fa-shopping-bag"></i>
-          Start Shopping
-        </button>
-        <button class="btn btn-secondary btn-large">
-          <i class="fas fa-phone"></i>
-          Contact Us
-        </button>
+  <!-- Newsletter Section -->
+  <section class="newsletter-section">
+    <div class="newsletter-content">
+      <div class="newsletter-text">
+        <h2>ابقَ على تواصل معنا</h2>
+        <p>
+          اشترك في نشرتنا الإخبارية لتحصل على آخر العروض والمنتجات الجديدة
+          <br>
+          Subscribe to our newsletter for latest offers and new products
+        </p>
       </div>
+      
+      <form class="newsletter-form">
+        <div class="form-group">
+          <input 
+            type="email" 
+            class="newsletter-input" 
+            placeholder="أدخل بريدك الإلكتروني | Enter your email"
+            required
+          >
+          <button type="submit" class="newsletter-btn">
+            <i class="fas fa-paper-plane"></i>
+            <span>اشترك | Subscribe</span>
+          </button>
+        </div>
+        <p class="form-note">
+          <i class="fas fa-lock"></i>
+          نحن نحترم خصوصيتك ولن نرسل لك رسائل غير مرغوب فيها
+        </p>
+      </form>
     </div>
-  </div>
-</section>
+  </section>
+</div>

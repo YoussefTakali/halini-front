@@ -20,7 +20,7 @@ interface Testimonial {
   avatar: string;
 }
 
-@Component({
+@Component({ 
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
@@ -118,5 +118,18 @@ export class HomeComponent implements OnInit {
 
   getStars(rating: number): number[] {
     return Array(Math.floor(rating)).fill(0);
+  }
+
+  addToCart(product: Product): void {
+    // TODO: Implement cart functionality
+    console.log('Adding to cart:', product);
+    // For now, just log the action
+    alert(`${product.name} added to cart!`);
+  }
+
+  onNewsletterSubmit(): void {
+    // TODO: Implement newsletter subscription
+    console.log('Newsletter subscription requested');
+    alert('Thank you for subscribing to our newsletter!');
   }
 }

@@ -1,46 +1,42 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
-// Components
-import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
-
-// Directives
-import { HighlightDirective } from './directives/highlight.directive';
-import { ClickOutsideDirective } from './directives/click-outside.directive';
-
-// Pipes
-import { CapitalizePipe } from './pipes/capitalize.pipe';
-import { TruncatePipe } from './pipes/truncate.pipe';
-import { TimeAgoPipe } from './pipes/time-ago.pipe';
 
 @NgModule({
   declarations: [
-    LoadingSpinnerComponent,
-    ConfirmDialogComponent,
-    HighlightDirective,
-    ClickOutsideDirective,
-    CapitalizePipe,
-    TruncatePipe,
-    TimeAgoPipe
+    NavbarComponent,
+    FooterComponent,
+    LoginComponent,
+    RegisterComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    FormsModule
+    RouterModule,
+    FormsModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule
   ],
   exports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    LoadingSpinnerComponent,
+    NavbarComponent,
+    FooterComponent,
+    LoginComponent,
+    RegisterComponent,
     ConfirmDialogComponent,
-    HighlightDirective,
-    ClickOutsideDirective,
-    CapitalizePipe,
-    TruncatePipe,
-    TimeAgoPipe
+    CommonModule,
+    RouterModule,
+    FormsModule
   ]
 })
 export class SharedModule { }

@@ -1,23 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 
-import { UserRoutingModule } from './user-routing.module';
 import { SharedModule } from '../../shared/shared.module';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
-import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
-import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+const routes: Routes = [
+  {
+    path: '',
+    component: UserDashboardComponent
+  }
+];
 
 @NgModule({
   declarations: [
-    UserDashboardComponent,
-    UserProfileComponent
+    UserDashboardComponent
   ],
   imports: [
     CommonModule,
-    FormsModule,
-    UserRoutingModule,
-    SharedModule
+    SharedModule,
+    RouterModule.forChild(routes)
   ]
 })
 export class UserModule { }

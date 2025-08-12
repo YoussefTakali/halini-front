@@ -1,35 +1,49 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// Angular Material imports
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { MainLayoutComponent } from './main-layout/main-layout.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { LoginComponent } from './features/auth/login/login.component';
-import { HomeComponent } from './features/home/home.component';
+import { SharedModule } from './shared/shared.module';
+
+import { AppComponent } from './app.component';
+import { LayoutComponent } from './layout/layout.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ProductsComponent } from './pages/products/products.component';
+import { CartComponent } from './shared/components/cart/cart.component';
+
+import { CartService } from './services/cart.service';
+import { NotificationService } from './services/notification.service';
+import { AuthDialogService } from './services/auth-dialog.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainLayoutComponent,
-    NavbarComponent,
-    SidebarComponent,
-    LoginComponent,
-    HomeComponent
+    LayoutComponent,
+    HomeComponent,
+    ProductsComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
     FormsModule,
-    CoreModule
+    BrowserAnimationsModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    AppRoutingModule,
+    CoreModule,
+    SharedModule
   ],
-  providers: [],
+  providers: [CartService, NotificationService, AuthDialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

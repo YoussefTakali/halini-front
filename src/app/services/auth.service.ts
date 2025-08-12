@@ -1,123 +1,132 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { Router } from '@angular/router';
-import { User, AuthResponse, LoginRequest, RegisterRequest } from '../models';
-import { API_CONFIG, LOCAL_STORAGE_KEYS } from '../constants';
+import { Observable, of, BehaviorSubject } from 'rxjs';
+import { RegisterData } from '../shared/components/register/register.component';
+
+export interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  address: string;
+  password?: string;
+  role?: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_BASE_URL = API_CONFIG.BASE_URL;
   private currentUserSubject = new BehaviorSubject<User | null>(null);
-  private tokenSubject = new BehaviorSubject<string | null>(null);
-
   public currentUser$ = this.currentUserSubject.asObservable();
-  public token$ = this.tokenSubject.asObservable();
+  
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) {
-    // Check for existing session on service initialization
-    this.checkExistingSession();
-  }
-
-  private checkExistingSession(): void {
-    const token = localStorage.getItem(LOCAL_STORAGE_KEYS.AUTH_TOKEN);
-    const userStr = localStorage.getItem(LOCAL_STORAGE_KEYS.CURRENT_USER);
-    
-    if (token && userStr) {
-      try {
-        const user = JSON.parse(userStr);
-        this.currentUserSubject.next(user);
-        this.tokenSubject.next(token);
-      } catch (error) {
-        console.error('Error parsing stored user data:', error);
-        this.clearSession();
-      }
+  constructor() {
+    // Check if user is already logged in (from localStorage)
+    const storedUser = localStorage.getItem('hallini_user');
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      this.currentUserSubject.next(user);
+      this.isAuthenticatedSubject.next(true);
     }
   }
 
-  login(credentials: LoginRequest): Observable<AuthResponse> {
-    // For now, return a mock response
-    // Replace this with actual HTTP call to your backend
-    return of({
-      user: {
-        id: '1',
-        email: credentials.email,
-        firstName: 'John',
-        lastName: 'Doe',
-        role: 'admin',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      token: 'mock-jwt-token'
+  login(email: string, password: string): Observable<boolean> {
+    // Simulate API call - In real app, this would be an HTTP request
+    return new Observable(observer => {
+      // Check if user exists in localStorage (simple demo)
+      const users = JSON.parse(localStorage.getItem('hallini_users') || '[]');
+      const user = users.find((u: any) => u.email === email && u.password === password);
+      
+      if (user) {
+        const { password, ...userWithoutPassword } = user;
+        
+        this.currentUserSubject.next(userWithoutPassword);
+        this.isAuthenticatedSubject.next(true);
+        localStorage.setItem('hallini_user', JSON.stringify(userWithoutPassword));
+        
+        observer.next(true);
+      } else {
+        observer.next(false);
+      }
+      observer.complete();
     });
-    
-    // Uncomment and modify this when you have a backend:
-    // return this.http.post<AuthResponse>(`${this.API_BASE_URL}/auth/login`, credentials);
   }
 
-  register(userData: RegisterRequest): Observable<AuthResponse> {
-    // For now, return a mock response
-    // Replace this with actual HTTP call to your backend
-    return of({
-      user: {
-        id: '1',
-        email: userData.email,
+  register(userData: RegisterData): Observable<boolean> {
+    return new Observable(observer => {
+      // Get existing users
+      const users = JSON.parse(localStorage.getItem('hallini_users') || '[]');
+      
+      // Check if email already exists
+      const emailExists = users.some((u: any) => u.email === userData.email);
+      
+      if (emailExists) {
+        observer.next(false);
+        observer.complete();
+        return;
+      }
+      
+      // Create new user
+      const newUser = {
+        id: Date.now().toString(),
         firstName: userData.firstName,
         lastName: userData.lastName,
-        role: 'user',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      token: 'mock-jwt-token'
+        email: userData.email,
+        phone: userData.phone,
+        address: userData.address,
+        password: userData.password, // In real app, this would be hashed
+        role: 'user' // Default role for new users
+      };
+      
+      // Save to users array
+      users.push(newUser);
+      localStorage.setItem('hallini_users', JSON.stringify(users));
+      
+      // Auto login after registration
+      const { password, ...userWithoutPassword } = newUser;
+      
+      this.currentUserSubject.next(userWithoutPassword);
+      this.isAuthenticatedSubject.next(true);
+      localStorage.setItem('hallini_user', JSON.stringify(userWithoutPassword));
+      
+      observer.next(true);
+      observer.complete();
     });
-    
-    // Uncomment and modify this when you have a backend:
-    // return this.http.post<AuthResponse>(`${this.API_BASE_URL}/auth/register`, userData);
   }
 
   logout(): void {
-    this.clearSession();
-    this.router.navigate(['/login']);
-  }
-
-  private clearSession(): void {
-    localStorage.removeItem(LOCAL_STORAGE_KEYS.AUTH_TOKEN);
-    localStorage.removeItem(LOCAL_STORAGE_KEYS.CURRENT_USER);
     this.currentUserSubject.next(null);
-    this.tokenSubject.next(null);
-  }
-
-  setAuthData(authResponse: AuthResponse): void {
-    localStorage.setItem(LOCAL_STORAGE_KEYS.AUTH_TOKEN, authResponse.token);
-    localStorage.setItem(LOCAL_STORAGE_KEYS.CURRENT_USER, JSON.stringify(authResponse.user));
-    this.currentUserSubject.next(authResponse.user);
-    this.tokenSubject.next(authResponse.token);
+    this.isAuthenticatedSubject.next(false);
+    localStorage.removeItem('hallini_user');
   }
 
   getCurrentUser(): User | null {
     return this.currentUserSubject.value;
   }
 
-  getToken(): string | null {
-    return this.tokenSubject.value;
-  }
-
   isAuthenticated(): boolean {
-    return this.getCurrentUser() !== null && this.getToken() !== null;
+    return this.isAuthenticatedSubject.value;
   }
 
-  hasRole(role: string): boolean {
+  getToken(): string | null {
+    // In a real app, this would return the JWT token
     const user = this.getCurrentUser();
-    return user?.role === role;
+    return user ? `token_${user.id}` : null;
   }
 
   hasAnyRole(roles: string[]): boolean {
-    const user = this.getCurrentUser();
-    return user ? roles.includes(user.role) : false;
+    const currentUser = this.getCurrentUser();
+    if (!currentUser || !currentUser.role) {
+      return false;
+    }
+    return roles.includes(currentUser.role);
+  }
+
+  getUserRole(): string | null {
+    const currentUser = this.getCurrentUser();
+    return currentUser?.role || null;
   }
 }
