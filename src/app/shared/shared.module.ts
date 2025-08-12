@@ -1,24 +1,46 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { FooterComponent } from './components/footer/footer.component';
+// Components
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+
+// Directives
+import { HighlightDirective } from './directives/highlight.directive';
+import { ClickOutsideDirective } from './directives/click-outside.directive';
+
+// Pipes
+import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { TruncatePipe } from './pipes/truncate.pipe';
+import { TimeAgoPipe } from './pipes/time-ago.pipe';
 
 @NgModule({
   declarations: [
-    NavbarComponent,
-    FooterComponent
+    LoadingSpinnerComponent,
+    ConfirmDialogComponent,
+    HighlightDirective,
+    ClickOutsideDirective,
+    CapitalizePipe,
+    TruncatePipe,
+    TimeAgoPipe
   ],
   imports: [
     CommonModule,
-    RouterModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
-    NavbarComponent,
-    FooterComponent,
     CommonModule,
-    RouterModule
+    ReactiveFormsModule,
+    FormsModule,
+    LoadingSpinnerComponent,
+    ConfirmDialogComponent,
+    HighlightDirective,
+    ClickOutsideDirective,
+    CapitalizePipe,
+    TruncatePipe,
+    TimeAgoPipe
   ]
 })
 export class SharedModule { }

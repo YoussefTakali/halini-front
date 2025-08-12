@@ -10,7 +10,6 @@ import { NavItem } from '../shared/components/navbar/navbar.component';
 })
 export class LayoutComponent implements OnInit {
   currentRoute = '';
-  userType: 'admin' | 'user' | null = null;
 
   // Default navigation items for the sweets website
   defaultNavItems: NavItem[] = [
@@ -30,29 +29,6 @@ export class LayoutComponent implements OnInit {
     { label: 'Contact', path: '/contact', icon: 'fas fa-phone' }
   ];
 
-  // Admin navigation items
-  adminNavItems: NavItem[] = [
-    { label: 'Dashboard', path: '/admin/dashboard', icon: 'fas fa-tachometer-alt' },
-    { 
-      label: 'Management', 
-      path: '/admin/management',
-      icon: 'fas fa-cog',
-      children: [
-        { label: 'Users', path: '/admin/users' },
-        { label: 'Settings', path: '/admin/settings' },
-        { label: 'Reports', path: '/admin/reports' }
-      ]
-    },
-    { label: 'Analytics', path: '/admin/analytics', icon: 'fas fa-chart-bar' }
-  ];
-
-  // User navigation items
-  userNavItems: NavItem[] = [
-    { label: 'Dashboard', path: '/user/dashboard', icon: 'fas fa-home' },
-    { label: 'Profile', path: '/user/profile', icon: 'fas fa-user' },
-    { label: 'Settings', path: '/user/settings', icon: 'fas fa-cog' }
-  ];
-
   constructor(private router: Router) {}
 
   ngOnInit(): void {
@@ -61,32 +37,13 @@ export class LayoutComponent implements OnInit {
       .pipe(filter((event: Event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.currentRoute = event.url;
-        this.updateUserType();
       });
 
     // Set initial route
     this.currentRoute = this.router.url;
-    this.updateUserType();
-  }
-
-  private updateUserType(): void {
-    if (this.currentRoute.startsWith('/admin')) {
-      this.userType = 'admin';
-    } else if (this.currentRoute.startsWith('/user')) {
-      this.userType = 'user';
-    } else {
-      this.userType = null;
-    }
   }
 
   get currentNavItems(): NavItem[] {
-    switch (this.userType) {
-      case 'admin':
-        return this.adminNavItems;
-      case 'user':
-        return this.userNavItems;
-      default:
-        return this.defaultNavItems;
-    }
+    return this.defaultNavItems;
   }
 }

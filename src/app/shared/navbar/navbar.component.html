@@ -1,0 +1,146 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <!-- Brand Section -->
+    <div class="brand">
+      <img src="assets/logo.png" alt="Hallini" class="brand-logo">
+      <div class="brand-content">
+        <h1 class="brand-title">Hallini</h1>
+        <span class="brand-subtitle">Tunisian Sweets</span>
+      </div>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search">
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input 
+          type="text" 
+          placeholder="Search delicious sweets..." 
+          class="search-input"
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="onSearch()"
+        >
+        <button class="search-btn" (click)="onSearch()" *ngIf="searchQuery">
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Actions Section -->
+    <div class="actions">
+      <button class="action-btn wishlist" (click)="goToWishlist()" [class.has-items]="wishlistCount > 0">
+        <i class="fas fa-heart"></i>
+        <span class="count" *ngIf="wishlistCount > 0">{{ wishlistCount }}</span>
+      </button>
+
+      <button class="action-btn cart" (click)="goToCart()">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      </button>
+
+      <div class="user-menu" *ngIf="currentUser; else guestActions">
+        <button class="action-btn user" (click)="toggleDropdown()">
+          <div class="avatar">
+            <img *ngIf="currentUser.avatar" [src]="currentUser.avatar" [alt]="getUserDisplayName()">
+            <i *ngIf="!currentUser.avatar" class="fas fa-user"></i>
+          </div>
+        </button>
+        
+        <div class="dropdown" *ngIf="dropdownOpen">
+          <div class="user-info">
+            <strong>{{ getUserDisplayName() }}</strong>
+            <span>{{ currentUser.email }}</span>
+          </div>
+          <div class="menu-items">
+            <a routerLink="/profile" (click)="toggleDropdown()">
+              <i class="fas fa-user"></i>Profile
+            </a>
+            <a routerLink="/orders" (click)="toggleDropdown()">
+              <i class="fas fa-receipt"></i>Orders
+            </a>
+            <a routerLink="/wishlist" (click)="toggleDropdown()">
+              <i class="fas fa-heart"></i>Wishlist
+            </a>
+            <button (click)="logout()">
+              <i class="fas fa-sign-out-alt"></i>Logout
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #guestActions>
+        <button class="action-btn login" routerLink="/login">
+          <i class="fas fa-sign-in-alt"></i>
+          <span class="action-text">Login</span>
+        </button>
+      </ng-template>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-toggle" (click)="onHamburgerClick($event)">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" [class.open]="isSidebarVisible">
+    <div class="mobile-search">
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input 
+          type="text" 
+          placeholder="Search..." 
+          class="search-input"
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="onSearch(); closeMobileMenu()"
+        >
+      </div>
+    </div>
+    
+    <div class="mobile-links">
+      <a routerLink="/" (click)="closeMobileMenu()">
+        <i class="fas fa-home"></i>Home
+      </a>
+      <a routerLink="/products" (click)="closeMobileMenu()">
+        <i class="fas fa-cookie-bite"></i>Products
+      </a>
+      <a routerLink="/wishlist" (click)="closeMobileMenu()">
+        <i class="fas fa-heart"></i>Wishlist
+      </a>
+      <a routerLink="/cart" (click)="closeMobileMenu()">
+        <i class="fas fa-shopping-bag"></i>Cart
+      </a>
+    </div>
+
+    <div class="mobile-user" *ngIf="currentUser; else mobileGuest">
+      <div class="user-info">
+        <strong>{{ getUserDisplayName() }}</strong>
+        <span>{{ currentUser.email }}</span>
+      </div>
+      <div class="user-actions">
+        <a routerLink="/profile" (click)="closeMobileMenu()">
+          <i class="fas fa-user"></i>Profile
+        </a>
+        <a routerLink="/orders" (click)="closeMobileMenu()">
+          <i class="fas fa-receipt"></i>Orders
+        </a>
+        <button (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i>Logout
+        </button>
+      </div>
+    </div>
+
+    <ng-template #mobileGuest>
+      <div class="mobile-auth">
+        <a routerLink="/login" (click)="closeMobileMenu()">
+          <i class="fas fa-sign-in-alt"></i>Login
+        </a>
+        <a routerLink="/register" (click)="closeMobileMenu()">
+          <i class="fas fa-user-plus"></i>Register
+        </a>
+      </div>
+    </ng-template>
+  </div>
+</nav>

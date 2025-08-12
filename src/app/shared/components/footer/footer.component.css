@@ -33,15 +33,14 @@
 }
 
 /* Brand Section */
-.footer-brand h3 {
-  font-size: 2.5rem;
-  font-weight: bold;
+.footer-logo-section {
   margin-bottom: 1rem;
-  background: linear-gradient(45deg, #D4AF37, #F4E4A6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.footer-logo {
+  height: 60px;
+  width: auto;
+  filter: brightness(1.1) drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
 }
 
 .brand-description {
@@ -152,6 +151,10 @@
     padding: 2rem 0 1.5rem;
   }
   
+  .footer-logo {
+    height: 50px;
+  }
+  
   .footer-sections {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
@@ -172,6 +175,10 @@
 @media (max-width: 480px) {
   .footer-sections {
     grid-template-columns: 1fr;
+  }
+  
+  .footer-logo {
+    height: 40px;
   }
   
   .social-links {

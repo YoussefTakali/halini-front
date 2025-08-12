@@ -1,31 +1,32 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-import { LayoutComponent } from './layout/layout.component';
-import { HomeComponent } from './pages/home/home.component';
-import { ProductsComponent } from './pages/products/products.component';
+import { LoginComponent } from './features/auth/login/login.component';
+import { HomeComponent } from './features/home/home.component';
+import { MainLayoutComponent } from './main-layout/main-layout.component';
 
 const routes: Routes = [
   {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
     path: '',
-    component: LayoutComponent,
+    component: MainLayoutComponent,
     children: [
-      { path: '', component: HomeComponent },
-      { path: 'products', component: ProductsComponent },
-      { path: 'products/:category', component: ProductsComponent },
-      { 
-        path: 'admin', 
-        loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule)
+      {
+        path: '',
+        redirectTo: '/home',
+        pathMatch: 'full'
       },
-      { 
-        path: 'user', 
-        loadChildren: () => import('./features/user/user.module').then(m => m.UserModule)
-      },
-      // Add more routes as needed
-      { path: 'about', redirectTo: '/', pathMatch: 'full' },
-      { path: 'contact', redirectTo: '/', pathMatch: 'full' },
-      { path: '**', redirectTo: '/', pathMatch: 'full' }
+      {
+        path: 'home',
+        component: HomeComponent
+      }
     ]
+  },
+  {
+    path: '**',
+    redirectTo: '/home'
   }
 ];
 

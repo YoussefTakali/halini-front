@@ -1,0 +1,147 @@
+<div class="register-dialog">
+  <div class="dialog-header">
+    <h2>إنشاء حساب جديد</h2>
+    <h3>Create New Account</h3>
+  </div>
+
+  <form class="register-form" (ngSubmit)="onRegister()">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="firstName">
+          الاسم الأول | First Name
+        </label>
+        <input
+          type="text"
+          id="firstName"
+          [(ngModel)]="formData.firstName"
+          name="firstName"
+          placeholder="الاسم الأول | First Name"
+          required
+          class="form-input"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">
+          الاسم الأخير | Last Name
+        </label>
+        <input
+          type="text"
+          id="lastName"
+          [(ngModel)]="formData.lastName"
+          name="lastName"
+          placeholder="الاسم الأخير | Last Name"
+          required
+          class="form-input"
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">
+        البريد الإلكتروني | Email Address
+      </label>
+      <input
+        type="email"
+        id="email"
+        [(ngModel)]="formData.email"
+        name="email"
+        placeholder="أدخل بريدك الإلكتروني | Enter your email"
+        required
+        class="form-input"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="phone">
+        رقم الهاتف | Phone Number
+      </label>
+      <input
+        type="tel"
+        id="phone"
+        [(ngModel)]="formData.phone"
+        name="phone"
+        placeholder="رقم الهاتف | Phone Number"
+        required
+        class="form-input"
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="address">
+        العنوان | Address
+      </label>
+      <textarea
+        id="address"
+        [(ngModel)]="formData.address"
+        name="address"
+        placeholder="العنوان الكامل | Full Address"
+        required
+        class="form-input form-textarea"
+        rows="3"
+      ></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="password">
+          كلمة المرور | Password
+        </label>
+        <input
+          type="password"
+          id="password"
+          [(ngModel)]="formData.password"
+          name="password"
+          placeholder="كلمة المرور | Password"
+          required
+          class="form-input"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">
+          تأكيد كلمة المرور | Confirm Password
+        </label>
+        <input
+          type="password"
+          id="confirmPassword"
+          [(ngModel)]="formData.confirmPassword"
+          name="confirmPassword"
+          placeholder="تأكيد كلمة المرور | Confirm"
+          required
+          class="form-input"
+        >
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button
+        type="submit"
+        class="btn-primary"
+        [disabled]="isLoading"
+      >
+        <i class="fas fa-user-plus" *ngIf="!isLoading"></i>
+        <i class="fas fa-spinner fa-spin" *ngIf="isLoading"></i>
+        <span>إنشاء الحساب | Create Account</span>
+      </button>
+
+      <button
+        type="button"
+        class="btn-secondary"
+        (click)="onCancel()"
+        [disabled]="isLoading"
+      >
+        إلغاء | Cancel
+      </button>
+    </div>
+
+    <div class="form-footer">
+      <p>
+        لديك حساب بالفعل؟ | Already have an account?
+        <button type="button" class="link-button" (click)="openLogin()">
+          سجل دخولك | Login Here
+        </button>
+      </p>
+    </div>
+  </form>
+</div>

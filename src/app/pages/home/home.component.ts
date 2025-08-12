@@ -91,7 +91,6 @@ export class HomeComponent implements OnInit {
 
   addToCart(product: Product): void {
     this.cartService.addToCart(product, 1);
-    alert(`تمت إضافة ${product.name} إلى السلة!\nAdded to cart successfully!`);
   }
 
   getStars(rating: number): string[] {

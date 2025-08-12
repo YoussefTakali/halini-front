@@ -219,9 +219,6 @@ export class ProductsComponent implements OnInit {
   addToCart(product: Product): void {
     const quantity = this.productQuantities[product.id] || 1;
     this.cartService.addToCart(product, quantity);
-    
-    // Show success message
-    alert(`تمت إضافة ${product.arabicName} إلى السلة!\n${product.name} added to cart!`);
   }
 
   updateQuantity(productId: number, change: number): void {

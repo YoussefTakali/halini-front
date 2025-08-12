@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CartService, CartItem } from '../../../services/cart.service';
+import { NotificationService } from '../../../services/notification.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -14,7 +15,10 @@ export class CartComponent implements OnInit, OnDestroy {
   isVisible: boolean = false;
   private cartSubscription?: Subscription;
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private notificationService: NotificationService
+  ) {}
 
   ngOnInit(): void {
     this.cartSubscription = this.cartService.cart$.subscribe(items => {
@@ -39,16 +43,31 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   removeItem(productId: number): void {
-    this.cartService.removeFromCart(productId);
+    const item = this.cartItems.find(item => item.id === productId);
+    if (item) {
+      this.notificationService.confirmRemoveItem(item.name).subscribe(confirmed => {
+        if (confirmed) {
+          this.cartService.removeFromCart(productId);
+        }
+      });
+    }
   }
 
   clearCart(): void {
-    this.cartService.clearCart();
+    this.notificationService.confirmClearCart().subscribe(confirmed => {
+      if (confirmed) {
+        this.cartService.clearCart();
+        this.notificationService.showInfo({
+          message: 'Cart cleared successfully',
+          arabicMessage: 'تم مسح السلة بنجاح'
+        });
+      }
+    });
   }
 
   checkout(): void {
     // Implement checkout logic here
-    alert('تم إرسال طلبكم بنجاح! سيتم التواصل معكم قريباً.\n\nYour order has been sent successfully! We will contact you soon.');
+    this.notificationService.showOrderSuccess();
     this.cartService.clearCart();
     this.isVisible = false;
   }

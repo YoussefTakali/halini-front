@@ -1,35 +1,35 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
-import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
-
 import { AppComponent } from './app.component';
-import { LayoutComponent } from './layout/layout.component';
-import { HomeComponent } from './pages/home/home.component';
-import { ProductsComponent } from './pages/products/products.component';
-import { CartComponent } from './shared/components/cart/cart.component';
-
-import { CartService } from './services/cart.service';
+import { CoreModule } from './core/core.module';
+import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { LoginComponent } from './features/auth/login/login.component';
+import { HomeComponent } from './features/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent,
-    HomeComponent,
-    ProductsComponent,
-    CartComponent
+    MainLayoutComponent,
+    NavbarComponent,
+    SidebarComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     AppRoutingModule,
-    CoreModule,
-    SharedModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    CoreModule
   ],
-  providers: [CartService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

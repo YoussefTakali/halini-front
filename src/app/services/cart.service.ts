@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { NotificationService } from './notification.service';
 
 export interface CartItem {
   id: number;
@@ -19,7 +20,7 @@ export class CartService {
   private cartSubject = new BehaviorSubject<CartItem[]>(this.cartItems);
   public cart$ = this.cartSubject.asObservable();
 
-  constructor() {
+  constructor(private notificationService: NotificationService) {
     // Load cart from localStorage if available
     const savedCart = localStorage.getItem('tunisian-sweets-cart');
     if (savedCart) {
@@ -33,6 +34,7 @@ export class CartService {
     
     if (existingItem) {
       existingItem.quantity += quantity;
+      this.notificationService.showCartSuccess(product.name, product.arabicName);
     } else {
       const cartItem: CartItem = {
         id: product.id,
@@ -44,12 +46,17 @@ export class CartService {
         category: product.category
       };
       this.cartItems.push(cartItem);
+      this.notificationService.showCartSuccess(product.name, product.arabicName);
     }
 
     this.saveAndNotify();
   }
 
   removeFromCart(productId: number): void {
+    const item = this.cartItems.find(item => item.id === productId);
+    if (item) {
+      this.notificationService.showRemoveFromCart(item.name, item.arabicName);
+    }
     this.cartItems = this.cartItems.filter(item => item.id !== productId);
     this.saveAndNotify();
   }

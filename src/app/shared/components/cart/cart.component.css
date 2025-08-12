@@ -1,7 +1,7 @@
 /* Cart Toggle Button */
 .cart-toggle {
   position: fixed;
-  top: 20px;
+  top: 13.5px;
   right: 20px;
   z-index: 1000;
   background: var(--burgundy);

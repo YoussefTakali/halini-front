@@ -2,7 +2,7 @@
   <div class="nav-container">
     <!-- Brand/Logo -->
     <div class="nav-brand" (click)="navigateTo('/')">
-      <span class="brand-text">{{ brand }}</span>
+      <img src="assets/logo.png" alt="Hallini Logo" class="brand-logo">
     </div>
 
     <!-- Navigation Items -->
@@ -32,19 +32,25 @@
 
     <!-- User Actions -->
     <div class="nav-actions">
-      <div *ngIf="userType" class="user-info">
-        <span class="user-type-badge" [class]="userType + '-badge'">
-          {{ userType | titlecase }}
+      <div *ngIf="isAuthenticated && currentUser" class="user-info">
+        <span class="user-greeting">
+          أهلاً {{ currentUser.firstName }} | Welcome {{ currentUser.firstName }}
         </span>
         <button class="logout-btn" (click)="onLogout()">
           <i class="fas fa-sign-out-alt"></i>
-          Logout
+          خروج | Logout
         </button>
       </div>
       
-      <div *ngIf="!userType" class="auth-actions">
-        <button class="login-btn" (click)="navigateTo('/login')">Login</button>
-        <button class="signup-btn" (click)="navigateTo('/register')">Sign Up</button>
+      <div *ngIf="!isAuthenticated" class="auth-actions">
+        <button class="login-btn" (click)="onLogin()">
+          <i class="fas fa-sign-in-alt"></i>
+          دخول | Login
+        </button>
+        <button class="signup-btn" (click)="onRegister()">
+          <i class="fas fa-user-plus"></i>
+          تسجيل | Sign Up
+        </button>
       </div>
     </div>
 
